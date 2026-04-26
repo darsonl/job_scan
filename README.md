@@ -1,6 +1,5 @@
 # Career-Ops
 
-[English](README.md) | [Español](README.es.md) | [Português (Brasil)](README.pt-BR.md) | [한국어](README.ko-KR.md) | [日本語](README.ja.md) | [Русский](README.ru.md) | [繁體中文](README.zh-TW.md)
 
 <p align="center">
   <a href="https://x.com/santifer"><img src="docs/hero-banner.jpg" alt="Career-Ops — Multi-Agent Job Search System" width="800"></a>
@@ -21,15 +20,6 @@
   <img src="https://img.shields.io/badge/Playwright-2EAD33?style=flat&logo=playwright&logoColor=white" alt="Playwright">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT">
   <a href="https://discord.gg/8pRpHETxa4"><img src="https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white" alt="Discord"></a>
-  <br>
-  <img src="https://img.shields.io/badge/EN-blue?style=flat" alt="EN">
-  <img src="https://img.shields.io/badge/ES-red?style=flat" alt="ES">
-  <img src="https://img.shields.io/badge/DE-grey?style=flat" alt="DE">
-  <img src="https://img.shields.io/badge/FR-blue?style=flat" alt="FR">
-  <img src="https://img.shields.io/badge/PT--BR-green?style=flat" alt="PT-BR">
-  <img src="https://img.shields.io/badge/KO-white?style=flat" alt="KO">
-  <img src="https://img.shields.io/badge/JA-red?style=flat" alt="JA">
-  <img src="https://img.shields.io/badge/ZH--TW-blue?style=flat" alt="ZH-TW">
 </p>
 
 ---
@@ -41,6 +31,19 @@
 <p align="center"><strong>740+ job listings evaluated · 100+ personalized CVs · 1 dream role landed</strong></p>
 
 <p align="center"><a href="https://discord.gg/8pRpHETxa4"><img src="https://img.shields.io/badge/Join_the_community-Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a></p>
+
+## This Fork — Taiwan Market Edition
+
+This is a customized fork of [santifer/career-ops](https://github.com/santifer/career-ops), adapted for candidates based in **Taiwan** by [Darson Lai](https://github.com/darsonl).
+
+**Additions over the original:**
+
+- **Taiwan job board support** — enhanced Playwright scan and pipeline functions to reliably scrape Taiwan-based job boards (104.com.tw, 1111.com.tw, CakeResume, etc.) that were previously unsupported or unreliable
+- **Taiwan market context** — scoring, location policy, and comp research calibrated for the Taiwan tech market (TWD compensation ranges, local vs. remote considerations, US citizen working in Taiwan nuances)
+
+The upstream project, modes, and evaluation logic are otherwise unchanged. Attribution to the original author is preserved.
+
+---
 
 ## What Is This
 
