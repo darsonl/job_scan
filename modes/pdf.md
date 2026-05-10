@@ -16,10 +16,28 @@
 10. Construye competency grid desde requisitos del JD (6-8 keyword phrases)
 11. Inyecta keywords naturalmente en logros existentes (NUNCA inventa)
 12. Genera HTML completo desde template + contenido personalizado
-13. Lee `name` de `config/profile.yml` → normaliza a kebab-case lowercase (e.g. "John Doe" → "john-doe") → `{candidate}`
-14. Escribe HTML a `/tmp/cv-{candidate}-{company}.html`
-15. Ejecuta: `node generate-pdf.mjs /tmp/cv-{candidate}-{company}.html output/cv-{candidate}-{company}-{YYYY-MM-DD}.pdf --format={letter|a4}`
-15. Reporta: ruta del PDF, nº páginas, % cobertura de keywords
+13. Obtén el número de reporte (`{num}`, zero-padded 3 dígitos) del contexto (auto-pipeline lo pasa como `REPORT_NUM`; si se invoca como `pdf #073`, úsalo directamente).
+    Normaliza el nombre de la empresa a kebab-case lowercase (e.g. "Taipei European School" → "taipei-european-school") → `{company-slug}`.
+14. Escribe HTML a `/tmp/{num}-{company-slug}-cv.html`
+15. Ejecuta: `node generate-pdf.mjs /tmp/{num}-{company-slug}-cv.html output/{num}-{company-slug}-cv-{YYYY-MM-DD}.pdf --format={letter|a4}`
+16. **Genera cover letter como Markdown (SIEMPRE):** Escribe `output/{num}-{company-slug}-cover-letter-{YYYY-MM-DD}.md` con el contenido de la carta. Formato:
+    - Heading con company, role, date, report number
+    - 3-4 párrafos: hook (por qué esta empresa), match helpdesk/hard skills con métricas, match AI/automation o diferenciador clave, cierre con comp target + invitación
+    - Firma con nombre, teléfono, email, LinkedIn, ubicación
+    - Idioma: mismo que el JD
+    - Reglas de escritura: no clichés, frases cortas, verbos de acción, sin voz pasiva (ver `_writing-rules.md`)
+17. Si se genera cover letter PDF también: escribe HTML a `/tmp/{num}-{company-slug}-cl.html`, genera `output/{num}-{company-slug}-cl-{YYYY-MM-DD}.pdf` con el mismo formato.
+18. Reporta: ruta del CV PDF, ruta del cover letter MD, nº páginas, % cobertura de keywords
+
+**Naming convention (canonical):**
+| Artifact | Path |
+|----------|------|
+| CV HTML (temp) | `/tmp/{num}-{company-slug}-cv.html` |
+| CV PDF | `output/{num}-{company-slug}-cv-{YYYY-MM-DD}.pdf` |
+| Cover Letter HTML (temp) | `/tmp/{num}-{company-slug}-cl.html` |
+| Cover Letter PDF | `output/{num}-{company-slug}-cl-{YYYY-MM-DD}.pdf` |
+
+This ties every output file directly to its report number, making `ls output/073-*` show everything for that position.
 
 ## Reglas ATS (parseo limpio)
 

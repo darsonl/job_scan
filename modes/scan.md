@@ -99,6 +99,7 @@ Los niveles son aditivos — se ejecutan todos, los resultados se mezclan y dedu
    - Los hrefs tienen el patrón `/job/{jobNo}` — construir `https://www.104.com.tw/job/{jobNo}` como URL canónica
    - El campo `company` se extrae del nombre del empleador en la card (`custName` o texto del elemento de empresa)
    - **Una keyword por board:** cada entrada en portals.yml usa exactamente una keyword — las queries multi-keyword con espacio no disparan el buscador del SPA al navegar directamente.
+   - **Filtro de ubicación pre-aplicado:** las URLs incluyen `area=6001001000%2C6001002000` (台北市 + 新北市). Los resultados ya vienen filtrados por Taipei y New Taipei — no se necesita filtrado adicional por ciudad.
 
 5. **Nivel 2 — ATS APIs / feeds** (paralelo):
    Para cada empresa en `tracked_companies` con `api:` definida y `enabled: true`:
