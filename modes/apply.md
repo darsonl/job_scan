@@ -9,6 +9,10 @@ Modo interactivo para cuando el candidato está rellenando un formulario de apli
 
 ## Workflow
 
+> **104.com.tw jobs:** If the URL is a 104.com.tw job link, pass it directly to
+> `/career-ops apply <url>` — the router will automatically dispatch to `apply-104`
+> mode (Playwright auto-fill with two mandatory review gates). No manual screenshot needed.
+
 ```
 1. DETECTAR    → Leer Chrome tab activa (screenshot/URL/título)
 2. IDENTIFICAR → Extraer empresa + rol de la página
