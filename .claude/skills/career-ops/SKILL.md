@@ -3,7 +3,7 @@ name: career-ops
 description: AI job search command center -- evaluate offers, generate CVs, scan portals, track applications
 user_invocable: true
 args: mode
-argument-hint: "[scan | deep | pdf | oferta | ofertas | apply | batch | tracker | pipeline | contacto | training | project | interview-prep | update]"
+argument-hint: "[scan | deep | pdf | oferta | ofertas | apply | apply-104 | batch | tracker | pipeline | contacto | training | project | interview-prep | update]"
 ---
 
 # career-ops -- Router
@@ -25,12 +25,15 @@ Determine the mode from `{{mode}}`:
 | `project` | `project` |
 | `tracker` | `tracker` |
 | `pipeline` | `pipeline` |
+| `apply` + 104.com.tw URL in args | `apply-104` |
 | `apply` | `apply` |
 | `scan` | `scan` |
 | `batch` | `batch` |
 | `patterns` | `patterns` |
 | `followup` | `followup` |
 | `filter` | `filter` |
+
+**apply-104 detection:** If mode is `apply` AND the argument contains a `104.com.tw/job/` URL → route to `apply-104` instead of `apply`.
 
 **Auto-pipeline detection:** If `{{mode}}` is not a known sub-command AND contains JD text (keywords: "responsibilities", "requirements", "qualifications", "about the role", "we're looking for", company name + role) or a URL to a JD, execute `auto-pipeline`.
 
@@ -57,6 +60,7 @@ Available commands:
   /career-ops project   → Evaluate portfolio project idea
   /career-ops tracker   → Application status overview
   /career-ops apply     → Live application assistant (reads form + generates answers)
+  /career-ops apply <104-url>  → Auto-apply to 104.com.tw job (Playwright, 2 review gates)
   /career-ops scan      → Scan portals and discover new offers
   /career-ops batch     → Batch processing with parallel workers
   /career-ops patterns  → Analyze rejection patterns and improve targeting
@@ -76,12 +80,12 @@ After determining the mode, load the necessary files before executing:
 ### Modes that require `_shared.md` + their mode file:
 Read `modes/_shared.md` + `modes/{mode}.md`
 
-Applies to: `auto-pipeline`, `oferta`, `ofertas`, `pdf`, `contacto`, `apply`, `pipeline`, `scan`, `batch`
+Applies to: `auto-pipeline`, `oferta`, `ofertas`, `pdf`, `contacto`, `apply`, `apply-104`, `pipeline`, `scan`, `batch`
 
 ### Modes that also require `_writing-rules.md` (candidate-facing text):
 Read `modes/_shared.md` + `modes/{mode}.md` + `modes/_writing-rules.md`
 
-Applies to: `pdf`, `auto-pipeline`, `apply`, `contacto`
+Applies to: `pdf`, `auto-pipeline`, `apply`, `apply-104`, `contacto`
 Skip for: `pipeline`, `oferta`, `ofertas`, `scan`, `batch` (evaluation only — no CV/cover letter text generated)
 
 ### Standalone modes (only their mode file):
@@ -90,7 +94,7 @@ Read `modes/{mode}.md`
 Applies to: `tracker`, `deep`, `training`, `project`, `patterns`, `followup`, `filter`
 
 ### Modes delegated to subagent:
-For `scan`, `apply` (with Playwright), and `pipeline` (always — regardless of URL count): launch as Agent with the content of `_shared.md` + `modes/{mode}.md` injected into the subagent prompt.
+For `scan`, `apply`, `apply-104` (with Playwright), and `pipeline` (always — regardless of URL count): launch as Agent with the content of `_shared.md` + `modes/{mode}.md` injected into the subagent prompt.
 
 ```
 Agent(
