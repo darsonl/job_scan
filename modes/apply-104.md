@@ -15,7 +15,24 @@ Workflow automático con Playwright para aplicar a trabajos en 104.com.tw usando
 
 ---
 
-## Step 0 — Pre-conditions
+## Step 0 — Resolución de Input
+
+El argumento puede ser un número de pipeline (`#xxx`) o una URL directa de 104.com.tw.
+
+**Si el argumento es `#xxx` (número de pipeline):**
+- `Read("data/pipeline.md")`
+- Buscar la línea en la sección `## Procesadas` que contenga `#xxx |` (regex: `#0*{num}\s*\|`)
+- Extraer la URL del segundo campo: `- [x] #{num} | {URL} | ...`
+- Si la línea no existe → STOP: "Report #{num} not found in data/pipeline.md Procesadas section."
+- Si la URL no es de 104.com.tw → STOP: "Report #{num} URL is not a 104.com.tw job. Use `/career-ops apply` for non-104 portals."
+- Usar la URL extraída como input para los pasos siguientes.
+
+**Si el argumento es una URL directa de 104.com.tw:**
+- Usar la URL tal cual.
+
+---
+
+## Step 0b — Pre-conditions
 
 Cargar Playwright tools via ToolSearch:
 

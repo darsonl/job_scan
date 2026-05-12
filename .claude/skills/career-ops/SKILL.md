@@ -33,7 +33,7 @@ Determine the mode from `{{mode}}`:
 | `followup` | `followup` |
 | `filter` | `filter` |
 
-**apply-104 detection:** If mode is `apply` AND the argument contains a `104.com.tw/job/` URL → route to `apply-104` instead of `apply`.
+**apply-104 detection:** If mode is `apply` AND the argument contains a `104.com.tw/job/` URL OR a pipeline number (`#xxx`) → route to `apply-104` instead of `apply`. For `#xxx`, the mode resolves the URL from `data/pipeline.md` Procesadas and validates it is a 104.com.tw job.
 
 **Auto-pipeline detection:** If `{{mode}}` is not a known sub-command AND contains JD text (keywords: "responsibilities", "requirements", "qualifications", "about the role", "we're looking for", company name + role) or a URL to a JD, execute `auto-pipeline`.
 
@@ -61,6 +61,7 @@ Available commands:
   /career-ops tracker   → Application status overview
   /career-ops apply     → Live application assistant (reads form + generates answers)
   /career-ops apply <104-url>  → Auto-apply to 104.com.tw job (Playwright, 2 review gates)
+  /career-ops apply #xxx       → Auto-apply using pipeline report number (resolves URL from pipeline.md)
   /career-ops scan      → Scan portals and discover new offers
   /career-ops batch     → Batch processing with parallel workers
   /career-ops patterns  → Analyze rejection patterns and improve targeting
