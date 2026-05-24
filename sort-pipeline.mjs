@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * sort-pipeline.mjs — Move completed [x] entries from Pendientes to Procesadas.
+ * sort-pipeline.mjs — Move completed [x] entries from Pending to Processed.
  *
  * Usage:
  *   node sort-pipeline.mjs [--dry-run]
- *     Move all [x] entries to Procesadas (end-of-session cleanup)
+ *     Move all [x] entries to Processed (end-of-session cleanup)
  *
  *   node sort-pipeline.mjs --complete "<URL>" --num NNN --score "X.X/5" --pdf "✅/❌"
  *     Mark a specific URL as done and move it atomically (no Edit tool call needed)
@@ -38,11 +38,11 @@ if (!existsSync(PIPELINE_FILE)) {
 const raw = readFileSync(PIPELINE_FILE, 'utf8');
 const lines = raw.split('\n');
 
-const pendientesIdx = lines.findIndex(l => l.trim() === '## Pendientes');
-const procesadasIdx = lines.findIndex(l => l.trim() === '## Procesadas');
+const pendingIdx = lines.findIndex(l => l.trim() === '## Pending');
+const processedIdx = lines.findIndex(l => l.trim() === '## Processed');
 
-if (pendientesIdx === -1 || procesadasIdx === -1) {
-  console.error('Could not find ## Pendientes or ## Procesadas sections.');
+if (pendingIdx === -1 || processedIdx === -1) {
+  console.error('Could not find ## Pending or ## Processed sections.');
   process.exit(1);
 }
 
@@ -58,7 +58,7 @@ if (COMPLETE_URL) {
 
   const targetIdx = lines.findIndex(l => matchRe.test(l));
   if (targetIdx === -1) {
-    console.error(`URL not found in Pendientes: ${COMPLETE_URL}`);
+    console.error(`URL not found in Pending: ${COMPLETE_URL}`);
     process.exit(1);
   }
 
@@ -90,10 +90,10 @@ if (COMPLETE_URL) {
   writeFileSync(PIPELINE_FILE, lines.join('\n'), 'utf8');
 }
 
-// ── Sort: move all [x] entries from Pendientes → Procesadas ──────────────────
+// ── Sort: move all [x] entries from Pending → Processed ──────────────────
 const fresh = readFileSync(PIPELINE_FILE, 'utf8').split('\n');
-const pIdx = fresh.findIndex(l => l.trim() === '## Pendientes');
-const prIdx = fresh.findIndex(l => l.trim() === '## Procesadas');
+const pIdx = fresh.findIndex(l => l.trim() === '## Pending');
+const prIdx = fresh.findIndex(l => l.trim() === '## Processed');
 
 const header = fresh.slice(0, pIdx + 1);
 const pendientesBody = fresh.slice(pIdx + 1, prIdx);
@@ -104,7 +104,7 @@ const doneLines = pendientesBody.filter(l => /^- \[x\]/.test(l));
 const pendingLines = pendientesBody.filter(l => !/^- \[x\]/.test(l));
 
 if (doneLines.length === 0) {
-  if (!COMPLETE_URL) console.log('Nothing to move — no [x] entries in Pendientes.');
+  if (!COMPLETE_URL) console.log('Nothing to move — no [x] entries in Pending.');
   process.exit(0);
 }
 
@@ -125,13 +125,13 @@ const output = [
 ].join('\n');
 
 if (DRY_RUN) {
-  console.log(`[dry-run] Would move ${doneLines.length} entries to Procesadas.`);
+  console.log(`[dry-run] Would move ${doneLines.length} entries to Processed.`);
   doneLines.forEach(l => console.log(' ', l));
   process.exit(0);
 }
 
 writeFileSync(PIPELINE_FILE, output, 'utf8');
 if (!COMPLETE_URL) {
-  console.log(`✅ Moved ${doneLines.length} completed entries to Procesadas.`);
+  console.log(`✅ Moved ${doneLines.length} completed entries to Processed.`);
   doneLines.forEach(l => console.log(' ', l.slice(0, 80)));
 }

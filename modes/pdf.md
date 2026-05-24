@@ -1,33 +1,33 @@
-# Modo: pdf — Generación de PDF ATS-Optimizado
+# Mode: pdf — ATS-Optimized PDF Generation
 
-## Pipeline completo
+## Full pipeline
 
-1. Lee `cv.md` como fuentes de verdad
-2. Pide al usuario el JD si no está en contexto (texto o URL)
-3. Extrae 15-20 keywords del JD
-4. Detecta idioma del JD → idioma del CV (EN default)
-5. Detecta ubicación empresa → formato papel:
+1. Read `cv.md` as source of truth
+2. Ask user for the JD if not in context (text or URL)
+3. Extract 15-20 keywords from the JD
+4. Detect JD language → CV language (EN default)
+5. Detect company location → paper format:
    - US/Canada → `letter`
-   - Resto del mundo → `a4`
-6. Detecta arquetipo del rol → adapta framing
-7. Reescribe Professional Summary inyectando keywords del JD + exit narrative bridge ("Built and sold a business. Now applying systems thinking to [domain del JD].")
-8. Selecciona top 3-4 proyectos más relevantes para la oferta
-9. Reordena bullets de experiencia por relevancia al JD
-10. Construye competency grid desde requisitos del JD (6-8 keyword phrases)
-11. Inyecta keywords naturalmente en logros existentes (NUNCA inventa)
-12. Genera HTML completo desde template + contenido personalizado
-13. Obtén el número de reporte (`{num}`, zero-padded 3 dígitos) del contexto (auto-pipeline lo pasa como `REPORT_NUM`; si se invoca como `pdf #073`, úsalo directamente).
-    Normaliza el nombre de la empresa a kebab-case lowercase (e.g. "Taipei European School" → "taipei-european-school") → `{company-slug}`.
-14. Escribe HTML a `/tmp/{num}-{company-slug}-cv.html`
-15. Ejecuta: `node generate-pdf.mjs /tmp/{num}-{company-slug}-cv.html output/{num}-{company-slug}-cv-{YYYY-MM-DD}.pdf --format={letter|a4}`
-16. **Genera cover letter como Markdown (SIEMPRE):** Escribe `output/{num}-{company-slug}-cover-letter-{YYYY-MM-DD}.md` con el contenido de la carta. Formato:
-    - Heading con company, role, date, report number
-    - 3-4 párrafos: hook (por qué esta empresa), match helpdesk/hard skills con métricas, match AI/automation o diferenciador clave, cierre con comp target + invitación
-    - Firma con nombre, teléfono, email, LinkedIn, ubicación
-    - Idioma: mismo que el JD
-    - Reglas de escritura: no clichés, frases cortas, verbos de acción, sin voz pasiva (ver `_writing-rules.md`)
-17. Si se genera cover letter PDF también: escribe HTML a `/tmp/{num}-{company-slug}-cl.html`, genera `output/{num}-{company-slug}-cl-{YYYY-MM-DD}.pdf` con el mismo formato.
-18. Reporta: ruta del CV PDF, ruta del cover letter MD, nº páginas, % cobertura de keywords
+   - Rest of world → `a4`
+6. Detect role archetype → adapt framing
+7. Rewrite Professional Summary injecting JD keywords + exit narrative bridge ("Built and sold a business. Now applying systems thinking to [JD domain].")
+8. Select top 3-4 projects most relevant to the offer
+9. Reorder experience bullets by relevance to JD
+10. Build competency grid from JD requirements (6-8 keyword phrases)
+11. Inject keywords naturally into existing achievements (NEVER fabricate)
+12. Generate complete HTML from template + personalized content
+13. Get report number (`{num}`, zero-padded 3 digits) from context (auto-pipeline passes it as `REPORT_NUM`; if invoked as `pdf #073`, use it directly).
+    Normalize company name to kebab-case lowercase (e.g. "Taipei European School" → "taipei-european-school") → `{company-slug}`.
+14. Write HTML to `/tmp/{num}-{company-slug}-cv.html`
+15. Run: `node generate-pdf.mjs /tmp/{num}-{company-slug}-cv.html output/{num}-{company-slug}-cv-{YYYY-MM-DD}.pdf --format={letter|a4}`
+16. **Generate cover letter as Markdown (ALWAYS):** Write `output/{num}-{company-slug}-cl-{YYYY-MM-DD}.md` with the letter content. Format:
+    - Heading with company, role, date, report number
+    - 3-4 paragraphs: hook (why this company), hard skills match with metrics, AI/automation match or key differentiator, close with comp target + invitation
+    - Signature with name, phone, email, LinkedIn, location
+    - Language: same as the JD
+    - Writing rules: no clichés, short sentences, action verbs, no passive voice (see `_writing-rules.md`)
+17. If cover letter PDF is also requested: write HTML to `/tmp/{num}-{company-slug}-cl.html`, generate `output/{num}-{company-slug}-cl-{YYYY-MM-DD}.pdf` with the same format.
+18. Report: CV PDF path, cover letter MD path, page count, % keyword coverage
 
 **Naming convention (canonical):**
 | Artifact | Path |
@@ -39,76 +39,76 @@
 
 This ties every output file directly to its report number, making `ls output/073-*` show everything for that position.
 
-## Reglas ATS (parseo limpio)
+## ATS Rules (clean parsing)
 
-- Layout single-column (sin sidebars, sin columnas paralelas)
-- Headers estándar: "Professional Summary", "Work Experience", "Education", "Skills", "Certifications", "Projects"
-- Sin texto en imágenes/SVGs
-- Sin info crítica en headers/footers del PDF (ATS los ignora)
-- UTF-8, texto seleccionable (no rasterizado)
-- Sin tablas anidadas
-- Keywords del JD distribuidas: Summary (top 5), primer bullet de cada rol, Skills section
+- Single-column layout (no sidebars, no parallel columns)
+- Standard headers: "Professional Summary", "Work Experience", "Education", "Skills", "Certifications", "Projects"
+- No text in images/SVGs
+- No critical info in PDF headers/footers (ATS ignores them)
+- UTF-8, selectable text (not rasterized)
+- No nested tables
+- JD keywords distributed: Summary (top 5), first bullet of each role, Skills section
 
-## Diseño del PDF
+## PDF Design
 
 - **Fonts**: Space Grotesk (headings, 600-700) + DM Sans (body, 400-500)
 - **Fonts self-hosted**: `fonts/`
-- **Header**: nombre en Space Grotesk 24px bold + línea gradiente `linear-gradient(to right, hsl(187,74%,32%), hsl(270,70%,45%))` 2px + fila de contacto
-- **Section headers**: Space Grotesk 13px, uppercase, letter-spacing 0.05em, color cyan primary
+- **Header**: name in Space Grotesk 24px bold + gradient line `linear-gradient(to right, hsl(187,74%,32%), hsl(270,70%,45%))` 2px + contact row
+- **Section headers**: Space Grotesk 13px, uppercase, letter-spacing 0.05em, cyan primary color
 - **Body**: DM Sans 11px, line-height 1.5
-- **Company names**: color accent purple `hsl(270,70%,45%)`
-- **Márgenes**: 0.6in
-- **Background**: blanco puro
+- **Company names**: accent purple `hsl(270,70%,45%)`
+- **Margins**: 0.6in
+- **Background**: pure white
 
-## Orden de secciones (optimizado "6-second recruiter scan")
+## Section Order (optimized for "6-second recruiter scan")
 
-1. Header (nombre grande, gradiente, contacto, link portfolio)
-2. Professional Summary (3-4 líneas, keyword-dense)
-3. Core Competencies (6-8 keyword phrases en flex-grid)
-4. Work Experience (cronológico inverso)
-5. Projects (top 3-4 más relevantes)
+1. Header (large name, gradient, contact, portfolio link)
+2. Professional Summary (3-4 lines, keyword-dense)
+3. Core Competencies (6-8 keyword phrases in flex-grid)
+4. Work Experience (reverse chronological)
+5. Projects (top 3-4 most relevant)
 6. Education & Certifications
-7. Skills (idiomas + técnicos)
+7. Skills (languages + technical)
 
-## Estrategia de keyword injection (ético, basado en verdad)
+## Keyword Injection Strategy (ethical, truth-based)
 
-Ejemplos de reformulación legítima:
-- JD dice "RAG pipelines" y CV dice "LLM workflows with retrieval" → cambiar a "RAG pipeline design and LLM orchestration workflows"
-- JD dice "MLOps" y CV dice "observability, evals, error handling" → cambiar a "MLOps and observability: evals, error handling, cost monitoring"
-- JD dice "stakeholder management" y CV dice "collaborated with team" → cambiar a "stakeholder management across engineering, operations, and business"
+Examples of legitimate reformulation:
+- JD says "RAG pipelines" and CV says "LLM workflows with retrieval" → change to "RAG pipeline design and LLM orchestration workflows"
+- JD says "MLOps" and CV says "observability, evals, error handling" → change to "MLOps and observability: evals, error handling, cost monitoring"
+- JD says "stakeholder management" and CV says "collaborated with team" → change to "stakeholder management across engineering, operations, and business"
 
-**NUNCA añadir skills que el candidato no tiene. Solo reformular experiencia real con el vocabulario exacto del JD.**
+**NEVER add skills the candidate does not have. Only reformulate real experience using the exact vocabulary of the JD.**
 
-## Template HTML
+## HTML Template
 
-Usar el template en `cv-template.html`. Reemplazar los placeholders `{{...}}` con contenido personalizado:
+Use the template in `cv-template.html`. Replace `{{...}}` placeholders with personalized content:
 
-| Placeholder | Contenido |
-|-------------|-----------|
-| `{{LANG}}` | `en` o `es` |
-| `{{PAGE_WIDTH}}` | `8.5in` (letter) o `210mm` (A4) |
+| Placeholder | Content |
+|-------------|---------|
+| `{{LANG}}` | `en` or `es` |
+| `{{PAGE_WIDTH}}` | `8.5in` (letter) or `210mm` (A4) |
 | `{{NAME}}` | (from profile.yml) |
 | `{{PHONE}}` | (from profile.yml — include with its separator only when `profile.yml` has a non-empty `phone` value; omit both `<span>` and `<span class="separator">` otherwise) |
 | `{{EMAIL}}` | (from profile.yml) |
 | `{{LINKEDIN_URL}}` | [from profile.yml] |
 | `{{LINKEDIN_DISPLAY}}` | [from profile.yml] |
-| `{{PORTFOLIO_URL}}` | [from profile.yml] (o /es según idioma) |
-| `{{PORTFOLIO_DISPLAY}}` | [from profile.yml] (o /es según idioma) |
+| `{{PORTFOLIO_URL}}` | [from profile.yml] (or /es by language) |
+| `{{PORTFOLIO_DISPLAY}}` | [from profile.yml] (or /es by language) |
 | `{{LOCATION}}` | [from profile.yml] |
-| `{{SECTION_SUMMARY}}` | Professional Summary / Resumen Profesional |
-| `{{SUMMARY_TEXT}}` | Summary personalizado con keywords |
-| `{{SECTION_COMPETENCIES}}` | Core Competencies / Competencias Core |
+| `{{SECTION_SUMMARY}}` | Professional Summary |
+| `{{SUMMARY_TEXT}}` | Personalized summary with keywords |
+| `{{SECTION_COMPETENCIES}}` | Core Competencies |
 | `{{COMPETENCIES}}` | `<span class="competency-tag">keyword</span>` × 6-8 |
-| `{{SECTION_EXPERIENCE}}` | Work Experience / Experiencia Laboral |
-| `{{EXPERIENCE}}` | HTML de cada trabajo con bullets reordenados |
-| `{{SECTION_PROJECTS}}` | Projects / Proyectos |
-| `{{PROJECTS}}` | HTML de top 3-4 proyectos |
-| `{{SECTION_EDUCATION}}` | Education / Formación |
-| `{{EDUCATION}}` | HTML de educación |
-| `{{SECTION_CERTIFICATIONS}}` | Certifications / Certificaciones |
-| `{{CERTIFICATIONS}}` | HTML de certificaciones |
-| `{{SECTION_SKILLS}}` | Skills / Competencias |
-| `{{SKILLS}}` | HTML de skills |
+| `{{SECTION_EXPERIENCE}}` | Work Experience |
+| `{{EXPERIENCE}}` | HTML of each job with reordered bullets |
+| `{{SECTION_PROJECTS}}` | Projects |
+| `{{PROJECTS}}` | HTML of top 3-4 projects |
+| `{{SECTION_EDUCATION}}` | Education |
+| `{{EDUCATION}}` | HTML of education |
+| `{{SECTION_CERTIFICATIONS}}` | Certifications |
+| `{{CERTIFICATIONS}}` | HTML of certifications |
+| `{{SECTION_SKILLS}}` | Skills |
+| `{{SKILLS}}` | HTML of skills |
 
 ## Canva CV Generation (optional)
 
@@ -192,6 +192,6 @@ d. Report: PDF path, file size, Canva design URL (for manual tweaking)
 - If `find_and_replace_text` finds no matches → try broader substring matching
 - Always provide the Canva design URL so the user can edit manually if auto-edit fails
 
-## Post-generación
+## Post-Generation
 
-Actualizar tracker si la oferta ya está registrada: cambiar PDF de ❌ a ✅.
+Update tracker if the offer is already registered: change PDF from ❌ to ✅.

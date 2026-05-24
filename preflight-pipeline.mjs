@@ -76,10 +76,10 @@ const pipelineFile = join(ROOT, 'data/pipeline.md');
 if (existsSync(pipelineFile)) {
   const content = readFileSync(pipelineFile, 'utf8');
   const lines = content.split('\n');
-  const pendientesIdx = lines.findIndex(l => l.trim() === '## Pendientes');
-  const procesadasIdx = lines.findIndex(l => l.trim() === '## Procesadas');
-  const body = pendientesIdx !== -1
-    ? lines.slice(pendientesIdx + 1, procesadasIdx !== -1 ? procesadasIdx : undefined)
+  const pendingIdx = lines.findIndex(l => l.trim() === '## Pending');
+  const processedIdx = lines.findIndex(l => l.trim() === '## Processed');
+  const body = pendingIdx !== -1
+    ? lines.slice(pendingIdx + 1, processedIdx !== -1 ? processedIdx : undefined)
     : [];
 
   pendingUrls = body
