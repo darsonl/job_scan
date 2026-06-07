@@ -1,0 +1,149 @@
+✅ active     8yo9s    EN:精通     IT End User Computing Manager
+✅ active     905aq    EN:精通     IT Manager
+✅ active     8raej    EN:精通     IT Project Manager
+✅ active     4jutg    EN:none   B類_系統整合_駐點工程師(台北地區)
+✅ active     8wlg6    EN:none   [技術服務]駐點工程師(公務機關)
+✅ active     90ysk    EN:mentioned 系統工程師-B23D
+✅ active     860d3    EN:none   【IT】專案駐點工程師
+✅ active     8m9cb    EN:略懂     資安駐點工程師
+✅ active     73e1y    EN:mentioned Technical Support Engineer 技術支援工程師(台北)
+✅ active     75avz    EN:none   FAE客服技術支援工程師｜Technical Support Engineer
+✅ active     854by    EN:精通     技術支援工程師
+✅ active     3ypjc    EN:mentioned Cloud Support Engineer 雲端工程師(台北)
+✅ active     8k0nl    EN:none   AI雲端工程師_AI & Cloud Engineer（台北辦公室）
+✅ active     915pk    EN:none   《天下雜誌》資訊科技部_雲端工程師
+✅ active     90yjd    EN:mentioned AWS雲端工程師
+✅ active     8tk2s    EN:mentioned E18 資安工程師
+✅ active     8y389    EN:none   資安工程師
+✅ active     8p91q    EN:mentioned 第二業務事業處【資安技術工程師】
+✅ active     901xu    EN:none   (1類)專案管理師_臺北市
+✅ active     8rq9j    EN:mentioned 資安工程師
+✅ active     915to    EN:none   資料架構師 Data Architecture
+✅ active     82f0r    EN:略懂     網路工程師
+✅ active     655r6    EN:精通     電信網路工程師
+❌ closed     8owbc    EN:unknown 職缺已關閉－104 人力銀行
+✅ active     8ovhe    EN:none   網路工程師
+✅ active     3egq6    EN:mentioned 網路工程師
+✅ active     90px6    EN:none   【資訊處】網路工程師
+✅ active     86si2    EN:mentioned 網路工程師
+✅ active     8zizm    EN:mentioned 系統工程師_資安
+⚠️ uncertain  7kjrf    EN:unknown Cloudflare block (bodyLen=445)
+✅ active     8kyvu    EN:mentioned 系統工程師
+✅ active     8tc7v    EN:none   網路系統工程師
+✅ active     851hi    EN:none   系統工程師
+✅ active     8x8mm    EN:略懂     系統工程師
+✅ active     8w0nr    EN:略懂     【SE】技術支援室 — 系統整合工程師 *新北產業園區-總公司*
+✅ active     4isra    EN:none   系統工程師
+✅ active     91016    EN:略懂     系統工程師
+❌ closed     916fu    EN:unknown 職缺已關閉－104 人力銀行
+✅ active     7sn1m    EN:略懂     【MIS】資訊部 — 資訊工程師 *新北產業園區-總公司*
+✅ active     7njtd    EN:none   MIS工程師
+⚠️ uncertain  8kxr6    EN:unknown Cloudflare block (bodyLen=448)
+⚠️ uncertain  907bt    EN:unknown Cloudflare block (bodyLen=485)
+✅ active     8o3sy    EN:精通     【北士科】IT Infrastructure Engineer
+⚠️ uncertain  8ltbv    EN:unknown Cloudflare block (bodyLen=469)
+✅ active     8xo03    EN:none   MIS工程師
+✅ active     8xiot    EN:none   MIS工程師
+✅ active     8nbmr    EN:none   MIS資訊工程師
+✅ active     6km1n    EN:mentioned （資深）IT工程師
+✅ active     7c357    EN:mentioned CI1200 IT工程師 - 雲端/地端架構 & 資安 IT Engineer - Cloud/Local Architecture & Cybersecurity
+✅ active     8ybtx    EN:none   【台北】駐點IT工程師（System&Network Engineer）※不須外語※－日本知名電信集團（19314）
+⚠️ uncertain  6mmig    EN:unknown Cloudflare block (bodyLen=431)
+❌ closed     8mklz    EN:unknown 職缺已關閉－104 人力銀行
+✅ active     8g6dh    EN:mentioned 資深IT工程師
+✅ active     7e6on    EN:none   IT 工程師
+✅ active     90aem    EN:精通     IT Security Leader
+✅ active     90ove    EN:精通     Deputy Manager, Regional IT Infrastructure
+✅ active     8ifng    EN:mentioned 系統管理經理 / System Administration Manager / IT Manager
+✅ active     8xwi4    EN:none   駐點工程師（System & Network Engineer）
+✅ active     8wji9    EN:略懂     專案駐點工程師 (新北板橋)【BU1-AUA】
+✅ active     8be71    EN:略懂     駐點工程師(SRE)-B611
+✅ active     90npg    EN:none   專案駐點工程師(台北)【BU68-6-FJ013】
+✅ active     6xyzl    EN:略懂     駐點工程師-B114
+✅ active     8mni0    EN:略懂     【SE】客戶專案 — Linux 系統維運工程師 *客戶端駐點-台北市內湖區*
+✅ active     89jl1    EN:none   系統工程師-台北
+✅ active     8nzgu    EN:略懂     技術服務工程師（資安產品）
+⚠️ uncertain  8y2ek    EN:unknown Cloudflare block (bodyLen=499)
+✅ active     772y3    EN:略懂     技術支援工程師
+✅ active     8r191    EN:mentioned 技術支援工程師
+✅ active     887ch    EN:mentioned FAE技術支援工程師
+✅ active     8nrhe    EN:mentioned 行銷部-雲端工程師 ( Cloud Engineer )
+✅ active     8thmj    EN:none   雲端工程師(Cloud Engineer) - AWS/Python/DevOps
+✅ active     90oru    EN:mentioned 第八業務事業處【雲端工程師】
+✅ active     902dp    EN:none   雲端工程師
+✅ active     77uvi    EN:略懂     雲端工程師／Cloud Engineer
+✅ active     8jj72    EN:mentioned <MSP>雲端工程師 Cloud Engineer - MSFT
+✅ active     8pftx    EN:none   SRE 雲端工程師
+✅ active     7hjss    EN:none   【Cloud Pre-sales/雲端工程師】雲端世界的架構推手！用穩定、安全、彈性的架構成就客戶需求
+✅ active     86l5n    EN:mentioned 【資訊】雲端工程師(台北市內湖區)
+✅ active     8yzmy    EN:mentioned 【Cloud Pre-sales/雲端工程師主管】數位世界的建築師！打造令客戶滿意的雲端架構
+✅ active     7mntl    EN:none   雲端工程師-M125
+❌ closed     8vam0    EN:unknown 職缺已關閉－104 人力銀行
+✅ active     7ozuz    EN:none   雲端工程師 / Cloud Engineer
+✅ active     8oohh    EN:mentioned AWS雲端工程師
+✅ active     8shjo    EN:none   雲端工程師
+✅ active     8w669    EN:none   總公司-IT部門/資訊安全工程師
+✅ active     8wexj    EN:略懂     資深資安工程師
+✅ active     8qzjb    EN:mentioned BU1資安工程師 (上班地點：臺北市內湖)
+✅ active     90b5c    EN:none   資訊安全工程師 (Information Security Engineer)
+✅ active     8ue1n    EN:精通     L1 資安工程師（Security Engineer）
+✅ active     8oxh6    EN:none   資訊安全工程師
+✅ active     8sd1t    EN:精通     資安工程師
+✅ active     8uz0e    EN:none   資安工程師
+✅ active     83hzj    EN:mentioned 資安工程師 Security Engineer
+✅ active     8v33a    EN:none   資訊安全工程師
+✅ active     8zwb3    EN:略懂     資深資安網路工程師
+❌ closed     8y1yi    EN:unknown 職缺已關閉－104 人力銀行
+✅ active     8zx7p    EN:略懂     D4000 資深網路工程師
+✅ active     8zrgt    EN:略懂     網路工程師
+✅ active     8u9y4    EN:略懂     資深網路工程師 Senior Network Engineer
+✅ active     8sptp    EN:mentioned KlickConnect｜網路工程師 Network Engineer (Senior)
+✅ active     5ytwf    EN:mentioned 網路工程師 Network Engineer/MIS Engineer
+✅ active     8xptg    EN:mentioned IT Generalist and Technology Support
+✅ active     7dviq    EN:精通     網路工程師
+✅ active     8mawz    EN:mentioned 網路工程師
+✅ active     5gv86    EN:略懂     網路工程師
+✅ active     7ystn    EN:none   網路工程師
+✅ active     8wjkt    EN:none   網路工程師_Network Engineer
+✅ active     8ycvr    EN:none   Network Engineer 網路工程師
+✅ active     78her    EN:none   MIS系統工程師
+✅ active     8kwu9    EN:none   系統工程師
+✅ active     8mt4q    EN:none   【自有產品團隊 / 非派駐】系統維運工程師（歡迎 MIS／系統工程師）
+✅ active     83kqb    EN:none   系統工程師
+✅ active     8q0fp    EN:精通     SAP/ERP Manager / Assistant Manager
+⚠️ uncertain  8op3c    EN:unknown Cloudflare block (bodyLen=454)
+❌ closed     8s4cn    EN:unknown 職缺已關閉－104 人力銀行
+⚠️ uncertain  8q0nv    EN:unknown Cloudflare block (bodyLen=435)
+✅ active     8zu18    EN:mentioned IT Manager/ IT Business Partner
+✅ active     8vfmq    EN:mentioned IT Manager 技術經理
+✅ active     90f36    EN:精通     IT Manager
+✅ active     8b0ms    EN:精通     IT Manager
+❌ closed     8acph    EN:unknown 職缺已關閉－104 人力銀行
+✅ active     8b04c    EN:精通     IT Manager
+✅ active     8ae6b    EN:none   【資訊技術】SRE工程師
+✅ active     90dxl    EN:none   IT工程師
+✅ active     8x7ln    EN:none   IT工程師
+✅ active     8wiqu    EN:none   網管工程師
+✅ active     8j1uk    EN:none   IT 工程師（IT Engineer）
+✅ active     90mfg    EN:none   MIS資訊工程師
+✅ active     7ld8r    EN:mentioned MIS工程師(台北半導體設備商)
+
+Results: 114 active  7 closed  8 uncertain
+English 精通: 15 jobs
+
+🇬🇧 Active jobs with English 精通 requirement:
+  8yo9s — IT End User Computing Manager
+  905aq — IT Manager
+  8raej — IT Project Manager
+  854by — 技術支援工程師
+  655r6 — 電信網路工程師
+  8o3sy — 【北士科】IT Infrastructure Engineer
+  90aem — IT Security Leader
+  90ove — Deputy Manager, Regional IT Infrastructure
+  8ue1n — L1 資安工程師（Security Engineer）
+  8sd1t — 資安工程師
+  7dviq — 網路工程師
+  8q0fp — SAP/ERP Manager / Assistant Manager
+  90f36 — IT Manager
+  8b0ms — IT Manager
+  8b04c — IT Manager

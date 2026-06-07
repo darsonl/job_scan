@@ -87,3 +87,35 @@ export function classifyLiveness({ status = 0, finalUrl = '', bodyText = '', app
 
   return { result: 'uncertain', reason: 'content present but no visible apply control found' };
 }
+
+/**
+ * Extract English proficiency level from a 104.com.tw job page body text.
+ * Looks for the 語文條件 (language conditions) section and finds 英文 level.
+ * Returns: '精通' | '良好' | '一般' | '略懂' | 'mentioned' | 'none'
+ */
+export function extractEnglish104(bodyText = '') {
+  const langIdx = bodyText.indexOf('語文條件');
+  if (langIdx !== -1) {
+    // Look within the 200 chars after the heading for the English entry
+    const section = bodyText.slice(langIdx, langIdx + 300);
+    if (section.includes('英文') || section.includes('英語')) {
+      // Find the level in a tight window *after* 英文/英語 to avoid matching
+      // a different language's level (e.g. 中文精通 appearing near 英文略懂).
+      const engPos = section.indexOf('英文') !== -1 ? section.indexOf('英文') : section.indexOf('英語');
+      const engWindow = section.slice(engPos, engPos + 15);
+      if (engWindow.includes('精通')) return '精通';
+      if (engWindow.includes('良好')) return '良好';
+      if (engWindow.includes('一般')) return '一般';
+      if (engWindow.includes('略懂')) return '略懂';
+      return 'mentioned';
+    }
+    return 'none';
+  }
+  // Fallback: broad cross-line search (語文條件 section may not be in body text if SPA not hydrated).
+  // Window kept tight (≤15 chars) so a nearby 中文精通 cannot contaminate an 英文略懂 match.
+  if (/英文[\s\S]{0,15}精通/.test(bodyText)) return '精通';
+  if (/英文[\s\S]{0,15}良好/.test(bodyText)) return '良好';
+  if (/英文[\s\S]{0,15}一般/.test(bodyText)) return '一般';
+  if (/英文[\s\S]{0,15}略懂/.test(bodyText)) return '略懂';
+  return 'none';
+}

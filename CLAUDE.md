@@ -269,6 +269,15 @@ Write one TSV file per evaluation to `batch/tracker-additions/{num}-{company-slu
 
 **Note:** In applications.md, score comes BEFORE status. The merge script handles this column swap automatically.
 
+### English 精通 Requirement — MANDATORY Rule
+
+For **104.com.tw jobs only**: if the job's 語文條件 (language conditions) section requires 英文 (English) at 精通 (mastery) level:
+
+1. **Report header**: Add `**English:** 精通 (mastery-level) required` after the `**Legitimacy:**` line (or after `**Verification:**` if that line exists).
+2. **pipeline.md entry**: The processed entry must include `| 英文精通` as a field — either preserved from the pending entry (if added during scan) or via `--extra "英文精通"` when calling `sort-pipeline.mjs --complete`.
+3. **Detection**: Look for `語文條件` section in the JD snapshot/body, then `英文` + `精通`. The `extractEnglish104()` function in `liveness-core.mjs` implements this check.
+4. `check-liveness.mjs` displays `英文精通` tag in output for active 104 jobs with this requirement.
+
 ### Pipeline Integrity
 
 1. **NEVER edit applications.md to ADD new entries** -- Write TSV in `batch/tracker-additions/` and `merge-tracker.mjs` handles the merge.

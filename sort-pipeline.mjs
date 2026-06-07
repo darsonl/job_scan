@@ -69,14 +69,20 @@ if (COMPLETE_URL) {
     lines[targetIdx] = original.replace('- [ ]', `- [!]`) + ` — Error: ${error}`;
     console.log(`⚠️  Marked as inaccessible: ${COMPLETE_URL}`);
   } else {
-    // Extract company/role from the pipe-delimited comment if present
-    // Format: - [ ] <URL> | Company | Role
+    // Extract all metadata from pipe-delimited comment in pending entry.
+    // Format: - [ ] <URL> | Company | Role [| extra...]
+    // All fields after the URL are preserved so scan-added markers (🇬🇧精通) survive processing.
     const parts = original.replace(/^- \[ \]\s*/, '').split('|').map(s => s.trim());
     const url = parts[0];
-    const company = parts[1] || '';
-    const role = parts[2] || '';
-    const companyRole = [company, role].filter(Boolean).join(' | ');
-    const suffix = companyRole ? ` | ${companyRole}` : '';
+    const meta = parts.slice(1).filter(Boolean); // company, role, any extras
+
+    // --extra: additional field appended after preserved meta (only if not already present)
+    const extra = getArg('--extra');
+    if (extra && !meta.includes(extra)) meta.push(extra);
+
+    const suffix = meta.length ? ` | ${meta.join(' | ')}` : '';
+    const company = meta[0] || '';
+    const role = meta[1] || '';
 
     lines[targetIdx] = `- [x] #${num} | ${url}${suffix} | ${score} | PDF ${pdf}`;
     console.log(`✅ Marked done: #${num} ${company} — ${role} (${score})`);

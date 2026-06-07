@@ -25,8 +25,10 @@ Processes job URLs accumulated in `data/pipeline.md`. The user adds URLs at any 
    c. If URL is inaccessible → run `node sort-pipeline.mjs --complete "<URL>" --error "login required"` and continue
    d. **Run full auto-pipeline**: Evaluation A-F → Report .md → PDF (if score ≥ 3.0) → Cover Letter → Tracker TSV
    d2. **Cover letter (mandatory when PDF is generated):** Write `output/{NNN}-{company-slug}-cl-{YYYY-MM-DD}.md` — 3-4 paragraphs: hook (why this company), skills + metrics from CV, key differentiator, close with comp ask. Match the language of the JD. Do NOT proceed to step (e) until this file is written.
-   e. **Mark complete (atomic):** Run `node sort-pipeline.mjs --complete "<URL>" --num NNN --score "X.X/5" --pdf PDF_STATUS`
+   e2. **English 精通 check (104.com.tw jobs only):** After reading the JD via Playwright snapshot, check the 語文條件 (language conditions) section. If it shows 英文 at 精通 level (all four skills 聽/說/讀/寫 at 精通, or any mention of 英文…精通), set `EN_FLAG="英文精通"` for use in the next step. Also add `**English:** 精通 (mastery-level) required` to the report header after the `**Legitimacy:**` line.
+   e. **Mark complete (atomic):** Run `node sort-pipeline.mjs --complete "<URL>" --num NNN --score "X.X/5" --pdf PDF_STATUS [--extra "英文精通"]`
       where `PDF_STATUS` is **`✅`** if the PDF was successfully generated in this step, or **`❌`** if not (score < 3.0 or generation failed).
+      Pass `--extra "英文精通"` if English 精通 was detected in step e2.
       Do NOT call this before the PDF step — the PDF status must be known before calling this command.
       This marks the entry as `[x]` and moves it to Processed in one operation — no Edit tool call needed.
 3. **If 3+ pending URLs**, launch parallel agents (Agent tool with `run_in_background`) to maximize speed.

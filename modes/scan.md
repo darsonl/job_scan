@@ -152,8 +152,9 @@ All levels are additive — all run, results are merged and deduplicated.
    **Do not abort the entire scan if one URL fails.** If `browser_navigate` errors (timeout, 403, etc.), mark as `skipped_expired` and continue with the next.
 
 8. **For each new verified offer that passes filters**:
-   a. Add to `pipeline.md` under "## Pending": `- [ ] {url} | {company} | {title}`
-   b. Record in `scan-history.tsv`: `{url}\t{date}\t{query_name}\t{title}\t{company}\tadded`
+   a. For **104.com.tw jobs** verified active in step 7.5: check the Playwright snapshot for the 語文條件 (language conditions) section. If 英文 appears at 精通 level, append `| 英文精通` to the pipeline entry.
+   b. Add to `pipeline.md` under "## Pending": `- [ ] {url} | {company} | {title}` (or `- [ ] {url} | {company} | {title} | 英文精通` if English 精通 detected in step a)
+   c. Record in `scan-history.tsv`: `{url}\t{date}\t{query_name}\t{title}\t{company}\tadded`
 
 9. **Offers filtered by title**: record in `scan-history.tsv` with status `skipped_title`
 10. **Duplicate offers**: record with status `skipped_dup`

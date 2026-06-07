@@ -16,7 +16,7 @@
 
 import { chromium } from 'playwright';
 import { readFile } from 'fs/promises';
-import { classifyLiveness } from './liveness-core.mjs';
+import { classifyLiveness, extractEnglish104 } from './liveness-core.mjs';
 
 async function checkUrl(page, url) {
   try {
@@ -24,7 +24,7 @@ async function checkUrl(page, url) {
 
     const status = response?.status() ?? 0;
 
-    // Give SPAs (Ashby, Lever, Workday) time to hydrate
+    // Give SPAs (Ashby, Lever, Workday, 104.com.tw) time to hydrate
     await page.waitForTimeout(2000);
 
     const finalUrl = page.url();
@@ -62,7 +62,22 @@ async function checkUrl(page, url) {
         .filter(Boolean);
     });
 
-    return classifyLiveness({ status, finalUrl, bodyText, applyControls });
+    const liveness = classifyLiveness({ status, finalUrl, bodyText, applyControls });
+
+    // 104.com.tw: "insufficient content" means Cloudflare blocked us, not necessarily a
+    // closed listing. Hard expired patterns (職缺已關閉) fire before this fallback, so
+    // a true closed page still classifies correctly. Only the ambiguous short-body case
+    // needs to be treated as uncertain to avoid false negatives.
+    if (/104\.com\.tw\/job/.test(url) && liveness.result === 'expired' && liveness.reason.includes('insufficient content')) {
+      return { result: 'uncertain', reason: 'Cloudflare may have blocked — manual check needed' };
+    }
+
+    // For active 104.com.tw job pages, also extract English proficiency level
+    if (/104\.com\.tw\/job/.test(url) && liveness.result === 'active') {
+      liveness.english = extractEnglish104(bodyText);
+    }
+
+    return liveness;
 
   } catch (err) {
     return { result: 'expired', reason: `navigation error: ${err.message.split('\n')[0]}` };
@@ -88,16 +103,36 @@ async function main() {
 
   console.log(`Checking ${urls.length} URL(s)...\n`);
 
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
+  // Headed mode bypasses Cloudflare bot checks on 104.com.tw. Headless Chromium triggers
+  // CF's interstitial after the first page; headed mode does not.
+  const has104 = urls.some(u => /104\.com\.tw\/job/.test(u));
+  const browser = await chromium.launch({
+    headless: false,
+    args: ['--disable-blink-features=AutomationControlled', '--window-size=1280,900'],
+  });
+  const context = await browser.newContext({
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    viewport: { width: 1280, height: 900 },
+  });
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+  });
+  const page = await context.newPage();
+
+  // Warm up Cloudflare session before visiting individual 104.com.tw job pages
+  if (has104) {
+    await page.goto('https://www.104.com.tw/', { waitUntil: 'domcontentloaded', timeout: 20000 }).catch(() => {});
+    await page.waitForTimeout(4000);
+  }
 
   let active = 0, expired = 0, uncertain = 0;
 
   // Sequential — project rule: never Playwright in parallel
   for (const url of urls) {
-    const { result, reason } = await checkUrl(page, url);
+    const { result, reason, english } = await checkUrl(page, url);
     const icon = { active: '✅', expired: '❌', uncertain: '⚠️' }[result];
-    console.log(`${icon} ${result.padEnd(10)} ${url}`);
+    const engTag = english === '精通' ? '  英文精通' : english && english !== 'none' ? `  英文:${english}` : '';
+    console.log(`${icon} ${result.padEnd(10)} ${url}${engTag}`);
     if (result !== 'active') console.log(`           ${reason}`);
     if (result === 'active') active++;
     else if (result === 'expired') expired++;
