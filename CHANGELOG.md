@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.0 (2026-06-07)
+
+
+### Features
+
+* add apply-104 mode for automated 104.com.tw job application ([0494def](https://github.com/darsonl/job_scan/commit/0494def68aabb4e14f34eb1af93b38e9b727649c))
+* route apply + 104 URL to apply-104 mode, update context loading ([fc3ac20](https://github.com/darsonl/job_scan/commit/fc3ac2007254483b764ef43f0e78f95c5d3ab7ba))
+* support #xxx pipeline number as apply-104 input ([b576e62](https://github.com/darsonl/job_scan/commit/b576e62599b87cac2febfb0fbd9edde6e04a0268))
+
 ## [1.5.0](https://github.com/santifer/career-ops/compare/v1.4.0...v1.5.0) (2026-04-14)
 
 
